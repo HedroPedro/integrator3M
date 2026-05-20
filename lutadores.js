@@ -20,16 +20,11 @@ export async function getLutadores(app){
 
 export async function getLutadoresById(app){
 	app.get("/lutadores/:id", async (req, res) => {
-		const first = Math.random() > 0.5
 		const id = req.params.id
 		let str = null
-		if (first) {
-			str = await fetch(`${array[0]}/${id}`)
-			str = await decryptResponse(str)
-		}
-        else {
-            str = await fetch(`${array[1]}/${id}`)
-        }
+		str = await fetch(`${array[0]}/${id}`)
+		str = await decryptResponse(str)
+		console.log(str)
 		const json = await str.json()
 		res.send(json)
 	})
@@ -40,7 +35,7 @@ export async function createLutadores(app){
 		const body = JSON.stringify(req.body)
 		const { nome, apelido, categoria, arte } = req.body;
 		
-		const request1 = fetch(`${array[0]}?nome="${nome}"&apelido="${apelido}"&categoria="${categoria}"&arte="${arte}"`, {
+		const request1 = fetch(`${array[0]}?nome=${nome}&apelido=${apelido}&categoria=${categoria}&arte=${arte}`, {
 			method: "POST"
 		})
 
